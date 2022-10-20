@@ -30,21 +30,31 @@ const getAny = async (req, res) => {
 const addAny = async (req, res) => {
     try {
         const { table, values} = req.body;
-
+        
         if (table === undefined || values === undefined) {
             res.status(400).json({ message: "Bad Request. Please fill all field." });
         }
-        //const params={};
-        //for(let i=0; i<values.length; i++) {
-         //   console.log(`Element at index ${i} is ${values[i]}`);  
-          //  Array.push(params,values[i]);
-        //}
+        let sentencia= "";
+
+        //console.log(values);
+        let keys;
+         for (keys of values){
+            let params;
+            let subvalues="";
+            for (params of Object.keys(keys)){
+               subvalues +=`"${keys[params]}",`;
+
+            }
+          sentencia += ` INSERT INTO ${table} (${Object.keys(keys).join(",")}) VALUES (${subvalues.slice(0, -1)}); `; 
         
-       // const connection = await getConnection();
-       // await connection.query("INSERT INTO "+table+" SET ?", params);
-       // res.json({ message: "Success Added" });
-       res.json({message: "success"});
-       console.log(values);
+        }
+    
+        console.log(sentencia);
+        const connection = await getConnection();
+        await connection.query(sentencia);
+       res.json({ message: "Success Added" });
+       //res.json({message: "success"});
+     
     } catch (error) {
         res.status(500);
         res.send(error.message);
