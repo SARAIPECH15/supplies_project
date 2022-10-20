@@ -43,10 +43,8 @@ const addAny = async (req, res) => {
             let subvalues="";
             for (params of Object.keys(keys)){
                subvalues +=`"${keys[params]}",`;
-
             }
           sentencia += ` INSERT INTO ${table} (${Object.keys(keys).join(",")}) VALUES (${subvalues.slice(0, -1)}); `; 
-        
         }
     
         console.log(sentencia);
@@ -64,15 +62,24 @@ const addAny = async (req, res) => {
 const updateAny = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, programmers } = req.body;
+        const { table , values } = req.body;
 
-        if (id === undefined || name === undefined || programmers === undefined) {
+        if (id === undefined || table === undefined || values === undefined) {
             res.status(400).json({ message: "Bad Request. Please fill all field." });
         }
-
-        const language = { name, programmers };
+           //console.log(values);
+        let keys;
+        for (keys of values){
+           let params;
+           let subvalues="";
+           for (params of Object.keys(keys)){
+              subvalues +=`"${keys[params]}",`;
+           }
+         sentencia += ` UPDATE ${table} (${Object.keys(keys).join(",")}) SET (${subvalues.slice(0, -1)} WHERE id=${id}); `; 
+       }
+   
         const connection = await getConnection();
-        const result = await connection.query("UPDATE language SET ? WHERE id = ?", [language, id]);
+        const result = await connection.query(sentencia);
         res.json(result);
     } catch (error) {
         res.status(500);
