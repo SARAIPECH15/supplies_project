@@ -40,9 +40,11 @@ const addAny = async (req, res) => {
           //  Array.push(params,values[i]);
         //}
         
-        const connection = await getConnection();
-        await connection.query("INSERT INTO "+table+" SET ?", params);
-        res.json({ message: "Success Added" });
+       // const connection = await getConnection();
+       // await connection.query("INSERT INTO "+table+" SET ?", params);
+       // res.json({ message: "Success Added" });
+       res.json({message: "success"});
+       console.log(values);
     } catch (error) {
         res.status(500);
         res.send(error.message);
