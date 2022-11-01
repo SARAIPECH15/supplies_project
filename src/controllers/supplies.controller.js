@@ -62,7 +62,7 @@ const addAnyBulk = async (req, res) => {
                 }
             }
             if(Fk==0){
-                sentencia = ` INSERT INTO ${table} (${Object.keys(keys).join(",")}) VALUES (${subvalues.slice(0, -1)}); `; 
+                sentencia = `INSERT INTO ${table} (${Object.keys(keys).join(",")}) VALUES (${subvalues.slice(0, -1)}); `; 
                 console.log(sentencia);
                 const connection = await getConnection();
                 const result=await connection.query(sentencia);
