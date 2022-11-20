@@ -15,5 +15,5 @@ app.use(express.json());
 
 // Routes
 app.use("/api/supplies", suppliesRoutes);
-app.use("/api/suppplies/login", suppliesAuthRoutes);
+app.use("/api/auth", suppliesAuthRoutes);
 export default app;

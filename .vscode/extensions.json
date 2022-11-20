@@ -1,0 +1,6 @@
+{
+    "recommendations": [
+        "formulahendry.vscode-mysql",
+        "ms-vscode.vscode-node-azure-pack"
+    ]
+}
