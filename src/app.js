@@ -7,7 +7,7 @@ import suppliesAuthRoutes from "./routes/supplies.auth.routes.js";
 const app = express();
 
 // Settings
-app.set("port", process.env.PORT || 3000);
+app.set("port",  process.env.PORT || 3000);
 
 // Middlewares
 app.use(morgan("dev"));
