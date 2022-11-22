@@ -17,9 +17,9 @@ const getAll = async (req, res) => {
 const getAny = async (req, res) => {
     try {
         //const { id } = req.params;
-        const {table,id } = req.body;
+        const {table, param, value } = req.body;
         const connection = await getConnection();
-        const result = await connection.query("SELECT  *FROM  "+table+" WHERE id="+id);
+        const result = await connection.query("SELECT  *FROM  "+table+" WHERE "+param+"="+value);
         res.json(result);
     } catch (error) {
         res.status(500);
