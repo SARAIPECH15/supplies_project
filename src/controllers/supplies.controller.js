@@ -19,9 +19,10 @@ const getAny = async (req, res) => {
         //const { id } = req.params;
         const {table, param, value } = req.body;
         const connection = await getConnection();
-        const result = await connection.query("SELECT  *FROM  "+table+" WHERE "+param+"="+value);
+        const result = await connection.query(`SELECT *FROM ${table} WHERE ${param}="${value}"`);
         res.json(result);
     } catch (error) {
+    
         res.status(500);
         res.send(error.message);
     }
@@ -146,7 +147,6 @@ const updateAny = async (req, res) => {
            }
          sentencia += ` UPDATE ${table} SET ${subvalues.slice(0, -1)}  WHERE id=${id}; `; 
        }
-           console.log(sentencia);
         const connection = await getConnection();
         const result = await connection.query(sentencia);
         res.json(result);
