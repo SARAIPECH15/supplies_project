@@ -114,7 +114,7 @@ const addAny = async (req, res) => {
         const connection = await getConnection();
         const result=await connection.query(sentencia);
       // res.json({ message: "Success Added" });
-       res.json(result["insertId"]);
+       res.json(result);
      
     } catch (error) {
         res.status(500);
